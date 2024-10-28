@@ -3,6 +3,9 @@ import { Link } from "react-router-dom"
 import axios from 'axios'
 
 export default function RegisterPage() {
+    /* 
+        - Membuat state yang diperlukan mulai dari email, password, nama
+    */
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,9 +24,14 @@ export default function RegisterPage() {
         }       
     }
     return(
+        // Membuat halaman form register
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
+
+                {/* Membuat Title Register */}
                 <h1 className="text-4xl text-center mb-4">Register</h1>
+
+                {/* Membuat form register */}
                 <form className="max-w-md mx-auto"
                     onSubmit={registerUser}
                 >
