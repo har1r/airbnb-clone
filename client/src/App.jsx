@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage'
 import Layout from './components/Layout'
 import RegisterPage from './pages/RegisterPage'
 import axios from 'axios'
+import { UserContextProvider } from './components/UserContext'
 
 axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.withCredentials = true;
@@ -24,6 +25,7 @@ function App() {
       
       - Atribut index merupakan default halaman yang akan tampil ketika user pertama kali membuka website
     */
+   <UserContextProvider>
     <Routes>
       {/* 
         - Sintaks <Route></Route> tidak digunakan lagi dalam React Router v6, tetapi merupakan gaya yang digunakan 
@@ -41,6 +43,7 @@ function App() {
       </Route>
       
     </Routes>
+   </UserContextProvider>
   )
 }
 
