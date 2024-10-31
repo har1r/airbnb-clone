@@ -5,6 +5,7 @@ require('dotenv').config();
 const User = require('./models/User.js');
 const bycript = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const routes = require('./routes/indexRoutes.js');
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(cors({
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL);
+
+app.use(routes);
 
 // Path for resigter, Login
 app.post('/register', async (req, res) => {

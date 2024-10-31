@@ -1,0 +1,17 @@
+POST http://localhost:3000/auth/regauth
+Content-Type: application/json
+
+{
+    "name": "sinta",
+    "email": "sinta@gmail.com",
+    "password": "1234567"
+}
+
+###
+POST http://localhost:3000/auth/logauth
+Content-Type: application/json
+
+{
+    "email": "sita@gmail.com",
+    "password": "1234567"
+}
