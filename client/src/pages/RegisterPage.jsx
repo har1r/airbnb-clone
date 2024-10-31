@@ -1,39 +1,34 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import axios from 'axios'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function RegisterPage() {
-    /* 
-        - Membuat state yang diperlukan mulai dari email, password, nama
-    */
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    async function registerUser(ev) {
+    async function registerAuth(ev) {
         ev.preventDefault();
-        try {
-            await axios.post('/register', {
-                name,
-                email,
-                password
-            });
-            alert('Registration successful. Now you can log in');
-        } catch (error) {
-            alert('Registration failed. Please try again later');
-        }       
-    }
+        const userReg = await axios.post('/auth/regauth', {
+            name,
+            email,
+            password
+         });
+         if(userReg) {
+             alert('Registration successes. Now you can log in');
+         }else {
+             alert('Registration fails. Please try again');      
+         };
+    };
+
     return(
-        // Membuat halaman form register
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
 
-                {/* Membuat Title Register */}
                 <h1 className="text-4xl text-center mb-4">Register</h1>
 
-                {/* Membuat form register */}
                 <form className="max-w-md mx-auto"
-                    onSubmit={registerUser}
+                    onSubmit={registerAuth}
                 >
                     <input type="text" placeholder="John Doe" 
                         value={name} 
@@ -56,5 +51,5 @@ export default function RegisterPage() {
                 </form>
             </div>
         </div>
-    )
+    );
 };

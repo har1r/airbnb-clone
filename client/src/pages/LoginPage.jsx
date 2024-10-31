@@ -1,48 +1,44 @@
-import axios from "axios";
-import { useContext, useState } from "react"
-import { Link, Navigate } from "react-router-dom"
-import { UserContext } from "../components/UserContext";
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { UserContext } from '../components/UserContext';
 
 export default function LoginPage() {
-    /* 
-        - Membuat state yang diperlukan mulai dari email, password
-    */
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRiderect] = useState(false);
 
     const {setUser} = useContext(UserContext);
-    async function handleLoginSubmit(ev) {
+
+    async function loginAuth(ev) {
         ev.preventDefault();
-        const {data} = await axios.post('/login', {
-            email,
-            password
-        });
-        
-        if (data) {
-            setUser(data);
-            alert('Login successful');
-            setRiderect(true);
-        } else {
-            alert('Login failed');
-        }          
-
-    }
-
-    if (redirect) {
+        try {
+            const userLog = await axios.post('/auth/logauth', {
+                email,
+                password
+            });
+            const userData = userLog.data.data;
+            if(userData) {
+                setUser(userData);
+                alert('Login is successfull');
+                setRiderect(true);
+            };
+        } catch (error) {
+            alert('Login is failed');
+        };
+    };
+    if(redirect) {
         return <Navigate to={'/'}/>
-    }
+    };
 
     return(
-        // Membuat halaman form login
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
-                {/* Membuat Title Login */}
+
                 <h1 className="text-4xl text-center mb-4">Login</h1>
 
-                {/* Membuat form login */}
                 <form className="max-w-md mx-auto"
-                    onSubmit={handleLoginSubmit}
+                    onSubmit={loginAuth}
                 >
                     <input type="email" placeholder="your@email.com" 
                         value={email}
@@ -61,5 +57,5 @@ export default function LoginPage() {
                 </form>
             </div>
         </div>
-    )
+    );
 };
