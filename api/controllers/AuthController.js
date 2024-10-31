@@ -11,11 +11,7 @@ class AuthController{
             const verfifyPass = bcrypt.compareSync(password, userLog.password);
             if(verfifyPass) {
                 const jwtSecret = 'sdfaskjhf626woigfagd24sghkag';
-                jwt.sign(
-                    {email: verfifyPass.email, id: verfifyPass._id}, 
-                    jwtSecret, 
-                    {}, 
-                    (err, token) => {
+                jwt.sign({email: verfifyPass.email, id: verfifyPass._id}, jwtSecret, {}, (err, token) => {
                         if(err) throw err
                         res.status(200).cookie("token", token).json({"result": "login is successfull", "data": userLog});
                     },
