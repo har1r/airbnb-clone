@@ -39,7 +39,7 @@ class AuthController{
         };
     };
 
-    static async profileAuth(req, res) {
+    static profileAuth(req, res) {
         const {token} = req.cookies;
         if(token) {
             jwt.verify(token, jwtSecret, {}, async(err, userProf) => {
@@ -50,6 +50,10 @@ class AuthController{
         }else {
             res.json(null);
         };
+    };
+
+    static logoutAuth(req, res) {
+        res.cookie("token", "").json({"result": "success to logout", "status": true});
     };
 };
 
