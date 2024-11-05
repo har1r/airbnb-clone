@@ -9,6 +9,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cookieParser());
 app.use(cors({
     credentials: true,
