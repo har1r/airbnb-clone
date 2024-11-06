@@ -10,6 +10,10 @@ class placeController{
         });
         res.json(newName);
     };
+
+    static photoUpload(req, res) {
+        res.json(req.files);
+    }
 };
 
 module.exports = placeController;
