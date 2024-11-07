@@ -1,4 +1,5 @@
 const imageDownloader = require('image-downloader');
+const fs = require('fs');
 
 class placeController{
     static async linkPhotoUpload(req, res) {
@@ -12,7 +13,16 @@ class placeController{
     };
 
     static photoUpload(req, res) {
-        res.json(req.files);
+        const uploadedFiles = [];
+        for(let i = 0; i < req.files.length; i++) {
+            const {path, originalname} = req.files[i];
+            const parts = originalname.split('.');
+            const ext = parts[parts.length - 1];
+            const newPath = path + '.' + ext;
+            fs.renameSync(path, newPath);
+            uploadedFiles.push(newPath.replace('uploads\\', ''));
+        }
+        res.json(uploadedFiles);
     }
 };
 
